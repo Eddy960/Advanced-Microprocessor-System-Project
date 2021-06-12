@@ -114,19 +114,42 @@ First, we are pulling and implement the repository from [https://github.com/ARM-
 
 FS90R is a 360 degree continuous rotation servo from FEETECH. Since its default rest point is 1.5 ms, it could be configured to rotate counterclockwise by setting the pulse width above the reset point, otherwise it will result in clockwise.  
 
-In this project, we are using two FS90R to demonstrate the wheelchair’s movements which are go, stop, left and right by configuring the two FS90R simultaneously. Table below shows the configuration of the FS90Rs corresponding to each scenario.
+In this project, we are using two servo motors to demonstrate the wheelchair’s movements which are go, stop, left and right by configuring them simultaneously.
 
-First, before coding the servo motor, we need to do some configuration on STM32. In this project, TIM2 was used. Since TIM2 is connected to APB1 bus, thus, the maximum frequency for the timer clock is 90MHz. However, the maximum value we could obtain is only 65535 due to the prescalar register which is only 16 bit. Then, divide the clock using prescalar and ARR register in order to obatin 900 kHz (45MHz/50Hz = 900 kHz).Thus, to get 50 Hz, prescalar should set to 900 whereas ARR set to 1000. Since the ARR, it will be act as 1000% pulse width and it would easier for us to modified setting the "active duration" by just modified with x% to CRR1 register.
+We are using TIM2 and TIM5 which are from same clock source. TIM2 is used to support PWM for left wheel whereas TIM5 supports PWM to right wheel. By controlling the direction of servo motors' , we could change the movement of the wheelchair. For example, to enable the wheelchair to go straight, TIM2 supports PWM to left wheel to rotate in counterclockwise while TIM 5 supports PWM to the right wheel to rotate in clockwise.
 
-After setting up the STM32, let's us insight to the coding used to control the movement of servo motors based on the 4 situation we set.
+To configure the clock in STM32, first, we need to carry out some calculation. Refer to [Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/).
 
-//Coding below shows the two servo motors are coded simultaneosly in order make it move based on the situation that we set. For example, both servo motors will rotating clockwise at the same time when "GO" command is detected. Besides, when "Left" command is detected, the servo motor on the left will be stop while the right side servo motor will rotate in clockwise. This configuration will allow the prototype turns left.//
+Servomotor supports 50 Hz since the period between 2 pulse must 20ms whereas APB1 Timer clock supports 45 MHz (Maximum up to 90 MHz).
 
+To calculate the scale, 
+
+Scale	=  Clock freq. From STM32/ Servomotor freq. = 45M/ 50 = 900k
+
+Then apply the 900k is distributed to ARR (Auto Reload Register) and Prescalar Register. Prescalar is set to 900 while ARR is set to 1000.
+
+The reason we set ARR to 1000 will represent PW as 1000%. Thus it will easier for us to alter the PW by simply writing X% to CCR1 Register.
+
+Figure below shows the clock tree and configurations:
+
+////////////////
+![Clock tree]()
+
+![Configuration for TIM2/TIM5](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/TIM2%20configuration.PNG)
 
 #### Part V: Integration of 4 Channel Relay
 
+We are using the LEDs on the 4 channel relay to indicate or in other words to identify the detected commands. This would give an alternative for user to monitor the movement of the wheelchair. The pins on 4 channel relay are connected to PB3, PB5, PB8 and PB10 respectively. So, for example, if "Left" command is detected, the PB3 will be write to low (Reset) and the corresponding LED on the the relay will be light up.  
 
+PB3 -> Left
 
+PB5 -> Right
+
+PB8 -> Stop 
+
+PB10 -> Go
+
+Thus, we can configure or assign the pin by using STM32CubeMX.
 
 #### Discussion of Overall Algorithm
 
