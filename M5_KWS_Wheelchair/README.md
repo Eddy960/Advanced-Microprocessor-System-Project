@@ -95,9 +95,18 @@ First, we are pulling and implement the repository from [https://github.com/ARM-
 
 #### Part IV: Integration of Servo Motor
 
+FS90R is a 360 degree continuous rotation servo from FEETECH. Since its default rest point is 1.5 ms, it could be configured to rotate counterclockwise by setting the pulse width above the reset point, otherwise it will result in clockwise.  
+
+In this project, we are using two FS90R to demonstrate the wheelchair’s movements which are go, stop, left and right by configuring the two FS90R simultaneously. Table below shows the configuration of the FS90Rs corresponding to each scenario.
+
+First, before coding the servo motor, we need to do some configuration on STM32. In this project, TIM2 was used. Since TIM2 is connected to APB1 bus, thus, the maximum frequency for the timer clock is 90MHz. However, the maximum value we could obtain is only 65535 due to the prescalar register which is only 16 bit. Then, divide the clock using prescalar and ARR register in order to obatin 900 kHz (45MHz/50Hz = 900 kHz).Thus, to get 50 Hz, prescalar should set to 900 whereas ARR set to 1000. Since the ARR, it will be act as 1000% pulse width and it would easier for us to modified setting the "active duration" by just modified with x% to CRR1 register.
+
+After setting up the STM32, let's us insight to the coding used to control the movement of servo motors based on the 4 situation we set.
+
+//Coding below shows the two servo motors are coded simultaneosly in order make it move based on the situation that we set. For example, both servo motors will rotating clockwise at the same time when "GO" command is detected. Besides, when "Left" command is detected, the servo motor on the left will be stop while the right side servo motor will rotate in clockwise. This configuration will allow the prototype turns left.//
+
 
 #### Part V: Integration of 4 Channel Relay
-
 
 
 
