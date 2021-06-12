@@ -28,9 +28,11 @@ Audacity
 
 ### Hardware Set Up
 Diagram below shows the connections of the components. 
+
 ![Block Diagram of the prototype](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Block%20Diagram.PNG)
 
 Diagram below shows the pin out diagram in STM32:
+
 ![IOC (Pin Out Diagram](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG)
 
 
