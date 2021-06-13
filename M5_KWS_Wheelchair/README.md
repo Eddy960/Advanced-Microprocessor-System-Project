@@ -31,11 +31,17 @@ Audacity
 ### Hardware Set Up
 Diagram below shows the connections of the components. 
 
-![Block Diagram of the prototype](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Block%20Diagram.PNG)
+<p align="center"> <img width="765" height="400" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Block%20Diagram.PNG"> </p>
+
+<p align="center"> Figure 1: Block Diagram of the prototype
+
 
 Diagram below shows the pin out diagram in STM32:
 
-![IOC (Pin Out Diagram for overall system](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG)
+<p align="center"> <img width="627" height="585" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG"> </p>
+
+<p align="center"> Figure 2: Pin Out Diagram for overall system	
+
 
 
 ### Work Flows 
@@ -112,13 +118,13 @@ Figure below shows the clock tree and configurations:
 
 We are using the LEDs on the 4 channel relay to indicate or in other words to identify the detected commands. This would give an alternative for user to monitor the movement of the wheelchair. The pins on 4 channel relay are connected to PB3, PB5, PB8 and PB10 respectively. So, for example, if "Left" command is detected, the PB3 will be write to low (Reset) and the corresponding LED on the the relay will be light up.  
 
-PB3 -> Left
+PIN | "XXXX"
+------------ | -------------
+PB3 | Left
+PB5 | Right
+PB8 | Stop
+PB10 |Go
 
-PB5 -> Right
-
-PB8 -> Stop 
-
-PB10 -> Go
 
 Thus, we can configure or assign the pin by using STM32CubeMX.
 
