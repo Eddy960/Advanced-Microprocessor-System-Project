@@ -183,95 +183,70 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 <p align="center"> Figure : Sources file and Header file that imported into working directory(Part II)
 
 
-#### Implement Developed Source Code (main.cpp)
+#### 4.7 Implement Developed Source Code (main.cpp)
+1. Pull the developed algorithm [main.cpp](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/main.cpp) into project directory.
 
-In this section, only shows the snipshot of important algorithm. For the overall developed algorith, could be refer to: [CDOINGFILELINK]().
+2. Compile and flash the code into STM32 Nucleo F446RE board.
 
-1. In the main.cpp, below libraries are included:
+### 5.0 Result & Discussion
 
-```c++
-#include "main.h"
-#include "kws_ds_cnn.h"
-#include "stdio.h"
-#include <string.h>
-```
-
-2. Then, we have set up the subroutine according to the situation "GO", "STOP", "LEFT", "RIGHT"
+##### 5.1 Insight to the Developed Algorithm
+1. Refer to our algorithm, we have set up the subroutine for the case of "Go", "Stop", "Left" and "Right".
 
 ```c++
 int GO_command(){
-	for (i =0; i<125; i++){
-		 htim2.Instance->CCR1 = i;  // duty cycle is .5 ms
-	}
-	for (j =125; j>0; j--){
-		 htim5.Instance->CCR2 = j;  // duty cycle is .5 ms
-	}
-	 //htim2.Instance->CCR1 = 25;  // duty cycle is .5 ms
-	 //htim2.Instance->CCR2 = 25;  // duty cycle is .5 ms
-	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,GPIO_PIN_SET);		//Pin PA10 = Go
+	 htim2.Instance->CCR1 = 125;  // duty cycle = 2.5 ms
+	 htim5.Instance->CCR2 = 25;  // duty cycle = 0.5 ms
+	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,GPIO_PIN_SET);		//Pin PA8 = Stop
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,GPIO_PIN_RESET);		//Pin PA10 = Go
-	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3,GPIO_PIN_SET);		//Pin PA10 = Go
-	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);		//Pin PA10 = Go
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3,GPIO_PIN_SET);		//Pin PB3 = Left
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);		//Pin PB5 = right
 
-	 //HAL_Delay(2000);
 }
 
 int STOP_command(){
-	 htim2.Instance->CCR1 = 0;  // duty cycle is .5 ms
-	 htim5.Instance->CCR2 = 0;  // duty cycle is .5 ms
+	 htim2.Instance->CCR1 = 0;  // duty cycle is 0 ms
+	 htim5.Instance->CCR2 = 0;  // duty cycle is 0 ms
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,GPIO_PIN_RESET);			//Pin PA8 = Stop
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,GPIO_PIN_SET);		//Pin PA10 = Go
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3,GPIO_PIN_SET);		//Pin PB3 = Left
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);		//Pin PB5 = right
-	 //HAL_Delay(2000);
 }
 
 int LEFT_command(){
-	 htim2.Instance->CCR1 = 0;  // duty cycle is .5 ms
-	//for (j =5; j>0; j--){
-	//	 htim5.Instance->CCR2 = j;  // duty cycle is .5 ms
-	//}
-	 htim5.Instance->CCR2 = 25;  // duty cycle is .5 ms
-	 HAL_Delay(750);
-	 htim2.Instance->CCR1 = 0;  // duty cycle is .5 ms
-	 htim5.Instance->CCR2 = 0;  // duty cycle is .5 ms
+	 htim2.Instance->CCR1 = 0;  // duty cycle is 0 ms
+	 htim5.Instance->CCR2 = 25;  // duty cycle is 0.5 ms
+	 HAL_Delay(1500);
+	 htim2.Instance->CCR1 = 0;  // duty cycle is 0 ms
+	 htim5.Instance->CCR2 = 0;  // duty cycle is 0 ms
 	 HAL_Delay(500);
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,GPIO_PIN_SET);		//Pin PA8 = Stop
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,GPIO_PIN_SET);		//Pin PA10 = Go
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3,GPIO_PIN_RESET);			//Pin PB3 = Left
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_SET);		//Pin PB5 = right
-	 //HAL_Delay(2000);
 }
 
 int RIGHT_command(){
-	for (i =120; i<121; i++){
-		 htim2.Instance->CCR1 = i;  // duty cycle is .5 ms
-	}
-	 htim5.Instance->CCR2 = 0;  // duty cycle is .5 ms
-	 HAL_Delay(750);
-	 htim2.Instance->CCR1 = 0;  // duty cycle is .5 ms
-	 htim5.Instance->CCR2 = 0;  // duty cycle is .5 ms
+	 htim2.Instance->CCR1 = 125;  // duty cycle is 2.5 ms
+	 htim5.Instance->CCR2 = 0;  // duty cycle is 0 ms
+	 HAL_Delay(1500);
+	 htim2.Instance->CCR1 = 0;  // duty cycle is 0 ms
+	 htim5.Instance->CCR2 = 0;  // duty cycle is 0 ms
 	 HAL_Delay(500);
-	 //htim2.Instance->CCR1 = 0;  // duty cycle is .5 ms
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,GPIO_PIN_SET);		//Pin PA8 = Stop
 	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,GPIO_PIN_SET);		//Pin PA10 = Go
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3,GPIO_PIN_SET);		//Pin PB3 = Left
-	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);			//Pin PB5 = right
-	 //HAL_Delay(2000);
-}
-
-int OTHER_command(){
-	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,GPIO_PIN_RESET);		//Pin PA8 = Stop
-	 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10,GPIO_PIN_RESET);		//Pin PA10 = Go
-	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3,GPIO_PIN_RESET);		//Pin PB3 = Left
-	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);			//Pin PB5 = right
-	 //HAL_Delay(2000);
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5,GPIO_PIN_RESET);		//Pin PB5 = right
 }
 ```
 
-3. In the main function, we using while loop to keep looping the system. Part of algorithm below shows the audio input is received and stored into a buffer. The received audio input is 16 bit and it will go through the process of speech extraction feature and class in order to identify the word.
+2. In the main function, we using while loop to keep looping the system. Part of algorithm below shows the audio input is received and stored into a buffer. The received audio input is 16 bit and it will go through the process of speech extraction feature and class in order to identify the word.
 
 ```c++
+	  while (1)
+  {
+	  HAL_Delay(100);
+    /* USER CODE END WHILE */
 	  for (int k=0; k<16000; k+=2){
 		  volatile HAL_StatusTypeDef result = HAL_I2S_Receive(&hi2s2, data_in, 2, 100);
 		  if (result != HAL_OK){
@@ -280,6 +255,7 @@ int OTHER_command(){
 			  audio_buffer[k] = (int16_t)data_in[0];
 			  audio_buffer[k+1] = (int16_t)data_in[1];
 		  }
+	  }
 
 	  char output_class[12][8] = {"Silence", "Unknown", "yes", "no", "up", "down", "left", "right", "on", "off", "stop", "go"};
 	  KWS_DS_CNN kws(audio_buffer);
@@ -288,12 +264,11 @@ int OTHER_command(){
 	  kws.classify();
 
 	  int max_ind = kws.get_top_class(kws.output);
-
 	  char buffer [70];
 	  int buffer_output = 0;
 ```
 
-4. Algorithm below shows when the identified word is matched to the stored recognised word, the corresponding subroutine will be executed and hence the wheelchair will be moved in desired direction.
+3. Algorithm below shows when the identified word is matched to the stored recognised word, the corresponding subroutine will be executed and hence the wheelchair will be moved in desired direction.
 
 ```c++
 		  if (max_ind == 6 ){	//left
@@ -324,7 +299,12 @@ int OTHER_command(){
   }
 ```
 
-### Reference
+4. Lastly, here is the link to our demonstration video and presentation video.
+				 
+[Demonstration Video](https://youtu.be/6vnJyarqXJY)
+[Presentation Video](https://youtu.be/J69QGfEUCbw)
+			 
+### 6.0 Reference
 
 [Synchronous/Asynchronous Receiver/Transmitter (USART) Mean?](https://www.techopedia.com/definition/9850/universal-synchronousasynchronous-receivertransmitter-usart)
 
@@ -341,5 +321,3 @@ int OTHER_command(){
 [Getting Started with STM32 - Working with ADC and DMA](https://www.digikey.com/en/maker/projects/getting-started-with-stm32-working-with-adc-and-dma/f5009db3a3ed4370acaf545a3370c30c)
 
 [Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/)
-
-### 5.0
