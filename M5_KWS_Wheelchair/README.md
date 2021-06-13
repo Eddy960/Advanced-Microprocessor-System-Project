@@ -1,6 +1,6 @@
 # Advanced-Microprocessor-System-Project
 ## Group 4: Arm Based Implementation of Speech Controlled Wheelchair
-### Introduction
+### 1.0 Introduction
 
 Nowadays, the increasing number of disabled and elderly people, leading to more invention in medical support devices. Especially the evolution of wheelchairs from the conventional mechanical wheelchair to nowadays electric wheelchair. However, some users were unable to freely control the wheelchair due to lack of arms or energy or having involuntary action.
 
@@ -9,8 +9,8 @@ Nowadays, the increasing number of disabled and elderly people, leading to more 
 In this project, Nucleo-F446RE board (ARM) is selected as the alternative for us to develop the system as it has low power consumption and high reliability. Besides, it provides an affordable and flexible alternative for us to build up our prototype with low cost. This project is built by refer to [Hello Edge: Keyword Spotting on Microcontrollers](https://arxiv.org/pdf/1711.07128.pdf) and repository from
 [https://github.com/ARM-software/ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU). As the result of the deployment, our prototype can be controlled to move in 4 situations which are “Go”, “Stop”, “Left” and “Right”.
 
-### Prerequisites
-#### Hardware
+### 2.0 Prerequisites
+#### 2.1 Hardware
 1 x Nucleo F446RE Board
 
 2 x Micro 360 Degree Continuous Rotation Servo (FS90R)
@@ -21,14 +21,14 @@ In this project, Nucleo-F446RE board (ARM) is selected as the alternative for us
 
 1 x 4 Channel Relay
 
-#### Software
+#### 2.2 Software
 
 STM32Cube IDE
 
 Audacity
 
 
-### Hardware Set Up
+### 3.0 Hardware Set Up
 Diagram below shows the connections of the components. 
 
 <p align="center"> <img width="765" height="400" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Block%20Diagram.PNG"> </p>
@@ -74,28 +74,61 @@ PB10 | IN4 (Go LED)
 5V | VCC
 GND | GND
 	
+### 4.0 Software Set Up
 
+#### 4.1 Initialize STM32Cube IDE
 
-	
-	
+1. Generate IOC extension file based on the hardware pin connection.
 
 Diagram below shows the pin out diagram in STM32:
 
 <p align="center"> <img width="627" height="585" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG"> </p>
 
-<p align="center"> Figure 2: Pin Out Diagram for overall system	
+<p align="center"> Figure 2: Pin Out Diagram for overall system
 
 
+#### 4.2 Configuration
 
-### Work Flows 
+##### 4.3 Clock Configuration 
+	
+FS90R is a 360 degree continuous rotation servo from FEETECH. Since its default rest point is 1.5 ms, it could be configured to rotate counterclockwise by setting the pulse width above the reset point, otherwise it will result in clockwise.  
 
-To develop the system, we have divided the integration process into 5 parts.
+In this project, we are using two servo motors to demonstrate the wheelchair’s movements which are go, stop, left and right by configuring them simultaneously.
 
-#### Part I: Configuration of USART
+We are using TIM2 and TIM5 which are from same clock source. TIM2 is used to support PWM for left wheel whereas TIM5 supports PWM to right wheel. By controlling the direction of servo motors' , we could change the movement of the wheelchair. For example, to enable the wheelchair to go straight, TIM2 supports PWM to left wheel to rotate in counterclockwise while TIM 5 supports PWM to the right wheel to rotate in clockwise.
+
+1. To configure the clock in STM32, first, we need to carry out some calculation. Refer to [Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/):
+
+- Servomotor supports 50 Hz since the period between 2 pulse must 20ms whereas APB1 Timer clock supports 45 MHz (Maximum up to 90 MHz).
+
+- To calculate the scale, 
+        
+        Scale	=  Clock freq. From STM32/ Servomotor freq. = 45M/ 50 = 900k
+
+2. Then apply the 900k is distributed to ARR (Auto Reload Register) and Prescalar Register. 
+
+3. Set Prescalar to 900 and set ARR to 1000 as shown in Figure "######";
+
+4. The reason we set ARR to 1000 will represent PW as 1000%. Thus it will easier for us to alter the PW by simply writing X% to CCR1 Register.
+
+5. Figure below shows the clock tree and configurations:
+
+<p align="center"> <img width="1317" height="409" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Clock%20Config.JPG"> </p>
+
+<p align="center"> Figure 2: Configuration of clock.
+	
+6. Figure below shows the  
+
+<p align="center"> <img width="834" height="349" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/TIM2%20configuration.PNG"> </p>
+
+<p align="center"> Figure 2: Configuration for TIM2/TIM5
+        
+        
+##### 4.4 Configuration of USART
 
 Universal Synchronous/Asynchronous Receiver/Transmitter (USART) which also known as serial communications interface (SCI) provides serial data communication from the serial port. The main difference of USART with UART is it provides the option of synchronous mode. In STM32 microcontroller, USART2 interface are available on PA2 and PA3. In this project, we are using the USART and PuTTy to monitoring the result of the KWS spotiing. In Part I, we only discuss on the set up of the USART and PuTTy.
 
-1. In STM32CubeMx, set up the configuration for USART2 as shown in the figure below:
+1. Set up the configuration for USART2 as shown in the figure below:
 
 - Set the baud rate to 115200/bits in order to get faster data transfer.
 - Set the word length to 8 bits
@@ -104,24 +137,21 @@ Universal Synchronous/Asynchronous Receiver/Transmitter (USART) which also known
 
 <p align="center"> Configuration of USART in STM32CubeMx
 
-////////2. Then, in STM32Cube IDE, open main.c, adding the coding below to the user code region:
+2. Then, configure PuTTy as below:
 
-
-3. After that, configure PuTTy as below:
-/////PIC REQUIRED
-
-#### Part II: Configuration of DMA
+        
+##### 4.5  Configuration of DMA
 
 DMA (Direct Memory Access) speed up the data transfer as the data is transfer between memory locations without the need for a CPU.
 
-1. Configure DMA as shown below:
+1. Configure DMA as shown in the diagram
 
-////Pic
+<p align="center"> <img width="843" height="468" src="///////pic"> </p>
 
+<p align="center"> Configuration of DMA
 
-
-
-#### Part III: Integration of I2S Omnidirectional Microphone
+        
+##### 4.5  Configuration of I2S2
 
 1. Configure I2S2 as shown below:
 
@@ -132,56 +162,26 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 <p align="center"> <img width="843" height="468" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG"> </p>
 
 <p align="center"> Configuration of I2S2
+        
 
+#### 4.6 Integration of KWS to STM32
 
-#### Part IV: Integration of Servo Motor
+1. Pull the repository from [https://github.com/ARM-software/ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU) and implement into working repository.
 
-FS90R is a 360 degree continuous rotation servo from FEETECH. Since its default rest point is 1.5 ms, it could be configured to rotate counterclockwise by setting the pulse width above the reset point, otherwise it will result in clockwise.  
+2. Picture below shows the header and library files that have been imported into project repository.
 
-In this project, we are using two servo motors to demonstrate the wheelchair’s movements which are go, stop, left and right by configuring them simultaneously.
+<p align="center"> <img width="897" height="424" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported.PNG"> </p>
 
-We are using TIM2 and TIM5 which are from same clock source. TIM2 is used to support PWM for left wheel whereas TIM5 supports PWM to right wheel. By controlling the direction of servo motors' , we could change the movement of the wheelchair. For example, to enable the wheelchair to go straight, TIM2 supports PWM to left wheel to rotate in counterclockwise while TIM 5 supports PWM to the right wheel to rotate in clockwise.
+<p align="center"> Figure : Sources file and Header file that imported into working directory(Part I)
 
-To configure the clock in STM32, first, we need to carry out some calculation. Refer to [Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/).
+ 
+<p align="center"> <img width="897" height="424" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported%202.PNG"> </p>
 
-Servomotor supports 50 Hz since the period between 2 pulse must 20ms whereas APB1 Timer clock supports 45 MHz (Maximum up to 90 MHz).
-
-To calculate the scale, 
-
-Scale	=  Clock freq. From STM32/ Servomotor freq. = 45M/ 50 = 900k
-
-Then apply the 900k is distributed to ARR (Auto Reload Register) and Prescalar Register. Prescalar is set to 900 while ARR is set to 1000.
-
-The reason we set ARR to 1000 will represent PW as 1000%. Thus it will easier for us to alter the PW by simply writing X% to CCR1 Register.
-
-Figure below shows the clock tree and configurations:
-
-////////////////PIC PLEASE
-![Clock tree]()
-
-![Configuration for TIM2/TIM5](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/TIM2%20configuration.PNG)
-
-#### Part V: Integration of 4 Channel Relay
-
-We are using the LEDs on the 4 channel relay to indicate or in other words to identify the detected commands. This would give an alternative for user to monitor the movement of the wheelchair. The pins on 4 channel relay are connected to PB3, PB5, PB8 and PB10 respectively. So, for example, if "Left" command is detected, the PB3 will be write to low (Reset) and the corresponding LED on the the relay will be light up.  
+<p align="center"> Figure : Sources file and Header file that imported into working directory(Part II)
 
 
 
-
-Thus, we can configure or assign the pin by using STM32CubeMX.
-
-
-#### Integration of KWS
-
-Pull the repository from [https://github.com/ARM-software/ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU) and implement into working repository.
-
-Picture below shows the header and library files that have been imported into project repository.
-![IOC (Sources file and Header file that imported into working directory(Part I)](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported.PNG)
-
-![IOC (Sources file and Header file that imported into working directory(Part II)](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported%202.PNG)
-
-
-#### Discussion of Overall Algorithm
+#### Implement Developed Source Code (main.cpp)
 
 In this section, only shows the snipshot of important algorithm. For the overall developed algorith, could be refer to: [CDOINGFILELINK]().
 
