@@ -19,7 +19,7 @@ In this project, Nucleo-F446RE board (ARM) is selected as the alternative for us
 
 1 x INMP441 MEMS Omnidirectional Microphones
 
-1 x 4 Channel Relay
+1 x 4 Channel Relay Module
 
 #### 2.2 Software
 
@@ -44,7 +44,7 @@ PB12 | WS
 VDD | VDD
 GND | GND
 
-*Table 1: Interconnection between microphone with STM32 board.*
+Table 1: Interconnection between microphone with STM32 board.
 
 2. Connect the servo motor as below:
 
@@ -53,17 +53,20 @@ PIN on STM32 | Pin on Servo Motor (Left Wheel)
 PA0 | RC Signal (Orange)
 5V | VCC (Red)
 GND | GND (Brown)
-	
+
+Table 2: Interconnection between servo motor with STM32 board (Left Wheel).
 	
 PIN on STM32 | Pin on Servo Motor (Right Wheel)
 ------------ | -------------
 PA1 | RC Signal (Orange)
 5V | VCC (Red)
 GND | GND (Brown)	
-	
-3. Connect the 4- channel Relay.
 
-PIN on STM32 | PIN on 4 channel Relay
+Table 3: Interconnection between servo motor with STM32 board (Right Wheel).
+	
+3. Connect the 4-channel relay module.
+
+PIN on STM32 | PIN on 4 channel relay module
 ------------ | -------------
 PB3 | IN3 (Left LED)
 PB5 | IN2 (Right LED)
@@ -71,6 +74,8 @@ PB8 | IN1 (Stop LED)
 PB10 | IN4 (Go LED)
 5V | VCC
 GND | GND
+
+Table 3: Interconnection between 4 channel relay module with STM32 board (Right Wheel).	
 	
 ### 4.0 Software Set Up
 
