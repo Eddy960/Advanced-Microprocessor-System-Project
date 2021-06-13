@@ -22,7 +22,9 @@ In this project, Nucleo-F446RE board (ARM) is selected as the alternative for us
 1 x 4 Channel Relay
 
 #### Software
-STM32CubeMX IDE
+STM32CubeMX
+
+STM32Cube IDE
 
 Audacity
 
