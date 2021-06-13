@@ -25,8 +25,6 @@ In this project, Nucleo-F446RE board (ARM) is selected as the alternative for us
 
 STM32Cube IDE
 
-Audacity
-
 
 ### 3.0 Hardware Set Up
 Diagram below shows the connections of the components. 
@@ -78,13 +76,11 @@ GND | GND
 
 #### 4.1 Initialize STM32Cube IDE
 
-1. Generate IOC extension file based on the hardware pin connection.
-
-Diagram below shows the pin out diagram in STM32:
+1. Generate IOC extension file based on the hardware pin connection. Figure 2 shows the pin out diagram for the overall system.
 
 <p align="center"> <img width="627" height="585" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG"> </p>
 
-<p align="center"> Figure 2: Pin Out Diagram for overall system
+<p align="center"> Figure 2: Pin Out Diagram for overall system.
 
 
 #### 4.2 Configuration
@@ -111,52 +107,52 @@ We are using TIM2 and TIM5 which are from same clock source. TIM2 is used to sup
 
 4. The reason we set ARR to 1000 will represent PW as 1000%. Thus it will easier for us to alter the PW by simply writing X% to CCR1 Register.
 
-5. Figure below shows the clock tree and configurations:
+5. Figure 3 shows the clock tree and configurations:
 
 <p align="center"> <img width="1317" height="409" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Clock%20Config.JPG"> </p>
 
-<p align="center"> Figure 2: Configuration of clock.
+<p align="center"> Figure 3: Configuration of clock.
 	
-6. Figure below shows the  
+6. Figure 4 shows the configuration for TIM2 and TIM5.
 
 <p align="center"> <img width="834" height="349" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/TIM2%20configuration.PNG"> </p>
 
-<p align="center"> Figure 2: Configuration for TIM2/TIM5
+<p align="center"> Figure 4: Configuration for TIM2/TIM5
         
         
 ##### 4.4 Configuration of USART
 
 Universal Synchronous/Asynchronous Receiver/Transmitter (USART) which also known as serial communications interface (SCI) provides serial data communication from the serial port. The main difference of USART with UART is it provides the option of synchronous mode. In STM32 microcontroller, USART2 interface are available on PA2 and PA3. In this project, we are using the USART and PuTTy to monitoring the result of the KWS spotiing. In Part I, we only discuss on the set up of the USART and PuTTy.
 
-1. Set up the configuration for USART2 as shown in the figure below:
+1. Set up the configuration for USART2 as shown in the figure 5:
 
 - Set the baud rate to 115200/bits in order to get faster data transfer.
 - Set the word length to 8 bits
 	
 <p align="center"> <img width="843" height="468" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/USART%20configurations.PNG"> </p>
 
-<p align="center"> Configuration of USART in STM32CubeMx
+<p align="center"> Figure 5: Configuration of USART in STM32CubeMx
 
-2. Then, configure PuTTy as below:
+2. Then, configure PuTTy as Figure 6:
 
 <p align="center"> <img width="449" height="438" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/PuTTy%20Configuration.PNG"> </p>
 
-<p align="center"> Configuration of PuTTy
+<p align="center"> Figure 6: Configuration of PuTTy
 	
         
 ##### 4.5  Configuration of DMA
 
 DMA (Direct Memory Access) speed up the data transfer as the data is transfer between memory locations without the need for a CPU.
 
-1. Configure DMA as shown in the diagram
+1. Configure DMA as shown in the Figure 7:
 
 <p align="center"> <img width="449" height="438" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/DMA.PNG"> </p>
 
-<p align="center"> Configuration of DMA
+<p align="center"> Figure 7: Configuration of DMA
         
 ##### 4.5  Configuration of I2S2
 
-1. Configure I2S2 as shown below:
+1. Configure I2S2 as Figure 8:
 
 - Set the transmission mode as Mode Master Receive.
 - Set Data and Frame Format to 32 bits data and 32 frame
@@ -164,23 +160,23 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 	
 <p align="center"> <img width="591" height="204" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG"> </p>
 
-<p align="center"> Configuration of I2S2
+<p align="center"> Figure 8: Configuration of I2S2
         
 
 #### 4.6 Integration of KWS to STM32
 
 1. Pull the repository from [https://github.com/ARM-software/ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU) and implement into working repository.
 
-2. Picture below shows the header and library files that have been imported into project repository.
+2. Picture 9 and Figure 10 shows the header and library files that have been imported into project repository.
 
 <p align="center"> <img width="897" height="424" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported.PNG"> </p>
 
-<p align="center"> Figure : Sources file and Header file that imported into working directory(Part I)
+<p align="center"> Figure 9: Sources file and Header file that imported into working directory(Part I)
 
  
 <p align="center"> <img width="897" height="424" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported%202.PNG"> </p>
 
-<p align="center"> Figure : Sources file and Header file that imported into working directory(Part II)
+<p align="center"> Figure 10 : Sources file and Header file that imported into working directory(Part II)
 
 
 #### 4.7 Implement Developed Source Code (main.cpp)
@@ -300,8 +296,12 @@ int RIGHT_command(){
 ```
 
 4. Lastly, here is the link to our demonstration video and presentation video.
+- Based on the demonstration video, it shows three scenario which are:
+ - The wheelchair will keep going after "Go" command and will be stop until receive "Stop" command.
+ - After the STM32 received "Left" and "Right" command, the wheelchair will rotate 90 degrees to respectively direction and stop.
 				 
 [Demonstration Video](https://youtu.be/6vnJyarqXJY)
+				 
 [Presentation Video](https://youtu.be/J69QGfEUCbw)
 			 
 ### 6.0 Reference
