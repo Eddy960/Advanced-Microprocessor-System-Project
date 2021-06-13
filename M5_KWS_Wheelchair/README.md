@@ -35,7 +35,7 @@ Diagram below shows the connections of the components.
 
 Diagram below shows the pin out diagram in STM32:
 
-![IOC (Pin Out Diagram](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG)
+![IOC (Pin Out Diagram for overall system](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG)
 
 
 ### Work Flows 
