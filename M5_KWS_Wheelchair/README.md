@@ -22,11 +22,11 @@ In this project, Nucleo-F446RE board (ARM) is selected as the alternative for us
 1 x 4 Channel Relay
 
 #### Software
-STM32CubeMX
 
 STM32Cube IDE
 
 Audacity
+
 
 ### Hardware Set Up
 Diagram below shows the connections of the components. 
@@ -35,6 +35,49 @@ Diagram below shows the connections of the components.
 
 <p align="center"> Figure 1: Block Diagram of the prototype
 
+
+1. Connect the microphone as below:
+	
+PIN on STM32 | Pin on Microphone
+------------ | -------------
+PC1 | SD
+PB10 | SCK
+PB12 | WS
+VDD | VDD
+GND | GND
+
+*Table 1: Interconnection between microphone with STM32 board.*
+
+2. Connect the servo motor as below:
+
+PIN on STM32 | Pin on Servo Motor (Left Wheel)
+------------ | -------------
+PA0 | RC Signal (Orange)
+5V | VCC (Red)
+GND | GND (Brown)
+	
+	
+PIN on STM32 | Pin on Servo Motor (Right Wheel)
+------------ | -------------
+PA1 | RC Signal (Orange)
+5V | VCC (Red)
+GND | GND (Brown)	
+	
+3. Connect the 4- channel Relay.
+
+PIN on STM32 | PIN on 4 channel Relay
+------------ | -------------
+PB3 | IN3 (Left LED)
+PB5 | IN2 (Right LED)
+PB8 | IN1 (Stop LED)
+PB10 | IN4 (Go LED)
+5V | VCC
+GND | GND
+	
+
+
+	
+	
 
 Diagram below shows the pin out diagram in STM32:
 
@@ -122,12 +165,7 @@ Figure below shows the clock tree and configurations:
 
 We are using the LEDs on the 4 channel relay to indicate or in other words to identify the detected commands. This would give an alternative for user to monitor the movement of the wheelchair. The pins on 4 channel relay are connected to PB3, PB5, PB8 and PB10 respectively. So, for example, if "Left" command is detected, the PB3 will be write to low (Reset) and the corresponding LED on the the relay will be light up.  
 
-PIN | "XXXX"
------------- | -------------
-PB3 | Left
-PB5 | Right
-PB8 | Stop
-PB10 |Go
+
 
 
 Thus, we can configure or assign the pin by using STM32CubeMX.
