@@ -139,6 +139,10 @@ Universal Synchronous/Asynchronous Receiver/Transmitter (USART) which also known
 
 2. Then, configure PuTTy as below:
 
+<p align="center"> <img width="449" height="438" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/PuTTy%20Configuration.PNG"> </p>
+
+<p align="center"> Configuration of PuTTy
+	
         
 ##### 4.5  Configuration of DMA
 
@@ -146,10 +150,9 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 
 1. Configure DMA as shown in the diagram
 
-<p align="center"> <img width="843" height="468" src="///////pic"> </p>
+<p align="center"> <img width="449" height="438" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/DMA.PNG"> </p>
 
 <p align="center"> Configuration of DMA
-
         
 ##### 4.5  Configuration of I2S2
 
@@ -159,7 +162,7 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 - Set Data and Frame Format to 32 bits data and 32 frame
 - Set audio freqeuncy to 8 kHz
 	
-<p align="center"> <img width="843" height="468" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG"> </p>
+<p align="center"> <img width="591" height="204" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG"> </p>
 
 <p align="center"> Configuration of I2S2
         
@@ -178,7 +181,6 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 <p align="center"> <img width="897" height="424" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported%202.PNG"> </p>
 
 <p align="center"> Figure : Sources file and Header file that imported into working directory(Part II)
-
 
 
 #### Implement Developed Source Code (main.cpp)
@@ -340,3 +342,4 @@ int OTHER_command(){
 
 [Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/)
 
+### 5.0
