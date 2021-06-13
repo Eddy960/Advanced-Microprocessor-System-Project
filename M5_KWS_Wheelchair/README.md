@@ -56,8 +56,10 @@ Universal Synchronous/Asynchronous Receiver/Transmitter (USART) which also known
 
 - Set the baud rate to 115200/bits in order to get faster data transfer.
 - Set the word length to 8 bits
+	
+<p align="center"> <img width="843" height="468" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/USART%20configurations.PNG"> </p>
 
-![IOC (Configuration of USART in STM32CubeMx](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/USART%20configurations.PNG)
+<p align="center"> Configuration of USART in STM32CubeMx
 
 ////////2. Then, in STM32Cube IDE, open main.c, adding the coding below to the user code region:
 
@@ -83,8 +85,10 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 - Set the transmission mode as Mode Master Receive.
 - Set Data and Frame Format to 32 bits data and 32 frame
 - Set audio freqeuncy to 8 kHz
+	
+<p align="center"> <img width="843" height="468" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG"> </p>
 
-![IOC (Configuration of I2S2](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG)
+<p align="center"> Configuration of I2S2
 
 
 #### Part IV: Integration of Servo Motor
