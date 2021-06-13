@@ -38,78 +38,47 @@ Diagram below shows the pin out diagram in STM32:
 ![IOC (Pin Out Diagram](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/KWSP%20Wheelchair%20IOC.PNG)
 
 
-
-
 ### Work Flows 
 
 To develop the system, we have divided the integration process into 5 parts.
 
 #### Part I: Configuration of USART
 
-Reference:
-
-[Synchronous/Asynchronous Receiver/Transmitter (USART) Mean?](https://www.techopedia.com/definition/9850/universal-synchronousasynchronous-receivertransmitter-usart)
-
-[STM32 Nucleo-64 boards User Manual](https://www.st.com/resource/en/user_manual/dm00105823-stm32-nucleo64-boards-mb1136-stmicroelectronics.pdf)
-
-[STM32 USART / UART Tutorial](https://deepbluembedded.com/stm32-usart-uart-tutorial/)
-
-[STM32 Nucleo - Keil 5 IDE with CubeMX: Tutorial 5 - UART Serial Communication](https://www.youtube.com/watch?v=d6MZHdgCQx0)
-
-[PuTTY Tutorial for Serial COM (step-by-step guide)](https://www.youtube.com/watch?v=dO-BMOzNKcI)
-
-
 Universal Synchronous/Asynchronous Receiver/Transmitter (USART) which also known as serial communications interface (SCI) provides serial data communication from the serial port. The main difference of USART with UART is it provides the option of synchronous mode. In STM32 microcontroller, USART2 interface are available on PA2 and PA3. In this project, we are using the USART and PuTTy to monitoring the result of the KWS spotiing. In Part I, we only discuss on the set up of the USART and PuTTy.
 
-1. In STM32CubeMx, set up the configuration for USART2 as shown in the figure below. Then generate the project and save.
+1. In STM32CubeMx, set up the configuration for USART2 as shown in the figure below:
 
+- Set the baud rate to 115200/bits in order to get faster data transfer.
+- Set the word length to 8 bits
 
 ![IOC (Configuration of USART in STM32CubeMx](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/USART%20configurations.PNG)
 
+////////2. Then, in STM32Cube IDE, open main.c, adding the coding below to the user code region:
 
-2. Then, in STM32Cube IDE, open main.c, adding the coding below to the user code region:
-```c
-GIVE ME CODING
-```
-
-```c++
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART2_Init 2 */
-```
-
-Then?
 
 3. After that, configure PuTTy as below:
 /////PIC REQUIRED
 
 #### Part II: Configuration of DMA
 
-References: 
-
-[Using Direct Memory Access (DMA) in STM32 projects](https://embedds.com/using-direct-memory-access-dma-in-stm23-projects/#:~:text=As%20its%20name%20says%20%E2%80%93%20DMA,controllers%20with%2012%20independent%20channels)
-
-[Getting Started with STM32 - Working with ADC and DMA](https://www.digikey.com/en/maker/projects/getting-started-with-stm32-working-with-adc-and-dma/f5009db3a3ed4370acaf545a3370c30c)
-
 DMA (Direct Memory Access) speed up the data transfer as the data is transfer between memory locations without the need for a CPU.
 
-1. Configure DMA as below:
+1. Configure DMA as shown below:
+
+////Pic
 
 
-First, we are pulling and implement the repository from [https://github.com/ARM-software/ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU) 
+
 
 #### Part III: Integration of I2S Omnidirectional Microphone
+
+1. Configure I2S2 as shown below:
+
+- Set the transmission mode as Mode Master Receive.
+- Set Data and Frame Format to 32 bits data and 32 frame
+- Set audio freqeuncy to 8 kHz
+
+![IOC (Configuration of I2S2](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/I2S2.PNG)
 
 
 #### Part IV: Integration of Servo Motor
@@ -134,7 +103,7 @@ The reason we set ARR to 1000 will represent PW as 1000%. Thus it will easier fo
 
 Figure below shows the clock tree and configurations:
 
-////////////////
+////////////////PIC PLEASE
 ![Clock tree]()
 
 ![Configuration for TIM2/TIM5](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/TIM2%20configuration.PNG)
@@ -152,6 +121,17 @@ PB8 -> Stop
 PB10 -> Go
 
 Thus, we can configure or assign the pin by using STM32CubeMX.
+
+
+#### Integration of KWS
+
+Pull the repository from [https://github.com/ARM-software/ML-KWS-for-MCU](https://github.com/ARM-software/ML-KWS-for-MCU) and implement into working repository.
+
+Picture below shows the header and library files that have been imported into project repository.
+![IOC (Sources file and Header file that imported into working directory(Part I)](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported.PNG)
+
+![IOC (Sources file and Header file that imported into working directory(Part II)](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Files%20that%20imported%20into%20project%20directory-20210612T015322Z-001/Files%20that%20imported%202.PNG)
+
 
 #### Discussion of Overall Algorithm
 
@@ -294,4 +274,21 @@ int OTHER_command(){
   }
 ```
 
+### Reference
+
+[Synchronous/Asynchronous Receiver/Transmitter (USART) Mean?](https://www.techopedia.com/definition/9850/universal-synchronousasynchronous-receivertransmitter-usart)
+
+[STM32 Nucleo-64 boards User Manual](https://www.st.com/resource/en/user_manual/dm00105823-stm32-nucleo64-boards-mb1136-stmicroelectronics.pdf)
+
+[STM32 USART / UART Tutorial](https://deepbluembedded.com/stm32-usart-uart-tutorial/)
+
+[STM32 Nucleo - Keil 5 IDE with CubeMX: Tutorial 5 - UART Serial Communication](https://www.youtube.com/watch?v=d6MZHdgCQx0)
+
+[PuTTY Tutorial for Serial COM (step-by-step guide)](https://www.youtube.com/watch?v=dO-BMOzNKcI)
+
+[Using Direct Memory Access (DMA) in STM32 projects](https://embedds.com/using-direct-memory-access-dma-in-stm23-projects/#:~:text=As%20its%20name%20says%20%E2%80%93%20DMA,controllers%20with%2012%20independent%20channels)
+
+[Getting Started with STM32 - Working with ADC and DMA](https://www.digikey.com/en/maker/projects/getting-started-with-stm32-working-with-adc-and-dma/f5009db3a3ed4370acaf545a3370c30c)
+
+[Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/)
 
