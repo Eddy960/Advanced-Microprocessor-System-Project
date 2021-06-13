@@ -151,7 +151,7 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 
 1. Configure DMA as shown in the Figure 7:
 
-<p align="center"> <img width="449" height="438" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/DMA.PNG"> </p>
+<p align="center"> <img width="591" height="204" src="https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/Pic/Mode%20%26%20Configuration-20210612T014717Z-001/DMA.PNG"> </p>
 
 <p align="center"> Figure 7: Configuration of DMA
         
