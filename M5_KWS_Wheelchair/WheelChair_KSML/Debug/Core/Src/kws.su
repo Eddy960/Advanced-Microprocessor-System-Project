@@ -1,0 +1,7 @@
+kws.cpp:26:1:KWS::KWS()	16	static
+kws.cpp:30:1:KWS::~KWS()	24	static
+kws.cpp:39:6:void KWS::init_kws()	32	static
+kws.cpp:56:6:void KWS::extract_features()	24	static
+kws.cpp:70:6:void KWS::classify()	16	static
+kws.cpp:77:5:int KWS::get_top_class(q7_t*)	32	static
+kws.cpp:90:6:void KWS::average_predictions()	32	static
