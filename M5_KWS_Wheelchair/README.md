@@ -46,6 +46,7 @@ GND | GND
 
 Table 1: Interconnection between microphone with STM32 board.
 
+	
 2. Connect the servo motor as below:
 
 PIN on STM32 | Pin on Servo Motor (Left Wheel)
@@ -56,6 +57,7 @@ GND | GND (Brown)
 
 Table 2: Interconnection between servo motor with STM32 board (Left Wheel).
 	
+	
 PIN on STM32 | Pin on Servo Motor (Right Wheel)
 ------------ | -------------
 PA1 | RC Signal (Orange)
@@ -63,6 +65,7 @@ PA1 | RC Signal (Orange)
 GND | GND (Brown)	
 
 Table 3: Interconnection between servo motor with STM32 board (Right Wheel).
+	
 	
 3. Connect the 4-channel relay module.
 
@@ -75,7 +78,8 @@ PB10 | IN4 (Go LED)
 5V | VCC
 GND | GND
 
-Table 3: Interconnection between 4 channel relay module with STM32 board (Right Wheel).	
+Table 4: Interconnection between 4 channel relay module with STM32 board (Right Wheel).	
+	
 	
 ### 4.0 Software Set Up
 
