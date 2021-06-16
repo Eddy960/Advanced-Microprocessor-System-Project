@@ -185,7 +185,7 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 
 
 #### 4.7 Implement Developed Source Code (main.cpp)
-1. Pull the developed algorithm *(source code)* [main.cpp](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/main.cpp) into project directory.
+1. Pull the developed algorithm **(source code)** [main.cpp](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/main.cpp) into project directory.
 
 2. Compile and flash the code into STM32 Nucleo F446RE board.
 
