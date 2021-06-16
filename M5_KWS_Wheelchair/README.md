@@ -185,7 +185,7 @@ DMA (Direct Memory Access) speed up the data transfer as the data is transfer be
 
 
 #### 4.7 Implement Developed Source Code (main.cpp)
-1. Pull the developed algorithm [main.cpp](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/main.cpp) into project directory.
+1. Pull the developed algorithm *(source code)* [main.cpp](https://github.com/Eddy960/Advanced-Microprocessor-System-Project/blob/main/M5_KWS_Wheelchair/main.cpp) into project directory.
 
 2. Compile and flash the code into STM32 Nucleo F446RE board.
 
@@ -309,7 +309,8 @@ int RIGHT_command(){
 				 
 [Presentation Video](https://youtu.be/J69QGfEUCbw)
 			 
-### 6.0 Reference
+### 6.0 References
+#### 6.1 Tutorials
 
 [Synchronous/Asynchronous Receiver/Transmitter (USART) Mean?](https://www.techopedia.com/definition/9850/universal-synchronousasynchronous-receivertransmitter-usart)
 
@@ -326,3 +327,28 @@ int RIGHT_command(){
 [Getting Started with STM32 - Working with ADC and DMA](https://www.digikey.com/en/maker/projects/getting-started-with-stm32-working-with-adc-and-dma/f5009db3a3ed4370acaf545a3370c30c)
 
 [Servo motor with STM32](https://controllerstech.com/servo-motor-with-stm32/)
+				 
+#### 6.2 Project References
+[1]	Vasundhara G. Posugade, Komal K. Shedge, Chaitali S. Tikhe. (2012). Touch-Screen Based Wheelchair System. International Journal of Engineering Research and Applications (IJERA) ISSN: 2248-9622 www.ijera.com Vol. 2, Issue 2, Mar-Apr 2012, pp.1245-1248
+				 
+[2]	A. Škraba, A. Koložvari, D. Kofjač and R. Stojanović, "Prototype of speech controlled cloud based wheelchair platform for disabled persons," 2014 3rd Mediterranean Conference on Embedded Computing (MECO), 2014, pp. 162-165, doi: 10.1109/MECO.2014.6862683.
+				 
+[3]	S. N. Patel and V. Prakash, "Autonomous camera based eye controlled wheelchair system using raspberry-pi," 2015 International Conference on Innovations in Information, Embedded and Communication Systems (ICIIECS), 2015, pp. 1-6, doi: 10.1109/ICIIECS.2015.7192876.
+				 
+[4]	Qu, Qinglin & Li, Liangguang. (2011). Realization of embedded speech recognition module based on STM32. 10.1109/ISCIT.2011.6092186.
+				 
+[5]	Khare, Vijay. (2017). Voice Controlled Wheelchair. 6.
+				 
+[6]	Tan Kian Hou et al 2020.Arduino based voice controlled wheelchair  J. Phys.: Conf. Ser. 1432 01206
+				 
+[7]	Naveen Suda, ARM-software/ML-KWS-for-MCU, Sep 8, 2018. Accessed on: Apr 1, 2021. [Online]. Available: https://github.com/ARM-software/ML-KWS-for-MCU
+				 
+[8]	“Using Direct Memory Access (DMA) in STM32 projects”, 2014. Accessed on: Apr 10, 2021. [Online]. Available: https://embedds.com/using-direct-memory-access-dma-in-stm23-projects/
+				 
+[9]	“Servo motor with STM32”, Mar 14, 2018. Accessed on Apr 19, 2021. [Online]. Available: https://controllerstech.com/servo-motor-with-stm32/ 
+				 
+[10]	ShawnHymel, Getting Started with STM32 - Working with ADC and DMA, Sep 30, 2019. Accessed on Apr 19, 2021. Available: https://www.digikey.com/en/maker/projects/getting-started-with-stm32-working-with-adc-and-dma/f5009db3a3ed4370acaf545a3370c30c 
+				 
+[11]	Khaled Magdy, STM32 USART / UART Tutorial, Jun 13, 2020. Accessed on Apr 19, 2021. Available: https://deepbluembedded.com/stm32-usart-uart-tutorial/
+				 
+[12]	Chew, S., Chow, K. and Chan Chuang Yik, E., 2021. Demonstration Video (G4 ARM Based Speech Recognition Wheelchair). [Online] Youtube.com. Accessed on Jun 15, 2021. Available: https://www.youtube.com/watch?v=6vnJyarqXJY 
